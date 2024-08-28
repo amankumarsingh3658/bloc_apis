@@ -35,19 +35,54 @@ class _PostsScreenState extends State<PostsScreen> {
           case PostStatus.Success:
             print(state.postStatus);
             print(state.postList);
-            return ListView.builder(
-                itemCount: state.postList.length,
-                itemBuilder: (context, index) {
-                  final item = state.postList[index];
-                  return ListTile(
-                    trailing: Text(item.email.toString()),
-                    leading: Text(item.id.toString()),
-                    title: Text(
-                      item.name.toString(),
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      hintText: "Search With Email",
                     ),
-                    subtitle: Text(item.body.toString()),
-                  );
-                });
+                    onChanged: (filterKey) {
+                      context.read<PostsBloc>().add(SearchPost(filterKey));
+                    },
+                  ),
+                ),
+                Expanded(
+                    child: state.searchMessage.isNotEmpty
+                        ? Center(child: Text(state.searchMessage.toString()))
+                        : ListView.builder(
+                            itemCount: state.tempSearchList.isEmpty
+                                ? state.postList.length
+                                : state.tempSearchList.length,
+                            itemBuilder: (context, index) {
+                              if (state.tempSearchList.isNotEmpty) {
+                                final item = state.tempSearchList[index];
+                                return ListTile(
+                                  trailing: Text(item.email.toString()),
+                                  leading: Text(item.id.toString()),
+                                  title: Text(
+                                    item.name.toString(),
+                                  ),
+                                  subtitle: Text(item.body.toString()),
+                                );
+                              } else {
+                                final item = state.postList[index];
+                                return ListTile(
+                                  trailing: Text(item.email.toString()),
+                                  leading: Text(item.id.toString()),
+                                  title: Text(
+                                    item.name.toString(),
+                                  ),
+                                  subtitle: Text(item.body.toString()),
+                                );
+                              }
+                            }))
+              ],
+            );
           case PostStatus.Failure:
             print(state.postStatus);
             return Center(child: Text(state.message.toString()));

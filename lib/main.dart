@@ -1,5 +1,6 @@
 import 'package:bloc_apis/Bloc/PostBloc/posts_bloc.dart';
 import 'package:bloc_apis/Repository/post_repository.dart';
+import 'package:bloc_apis/Ui/Posts/login_screen.dart';
 import 'package:bloc_apis/Ui/Posts/posts_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           useMaterial3: true,
         ),
-        home: PostsScreen(),
+        home: LoginScreen(),
       ),
     );
   }

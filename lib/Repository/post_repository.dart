@@ -22,7 +22,7 @@ class PostRepository {
       throw throw Exception('Socket Exception');
     } on TimeoutException {
       throw Exception('Request Timed Out');
-    }
+    } 
     throw Exception('Error while fetching Data');
   }
 }

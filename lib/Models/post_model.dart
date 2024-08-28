@@ -29,6 +29,5 @@ class PostModel extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id, postId, name, email, body];
 }

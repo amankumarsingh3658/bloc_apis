@@ -15,7 +15,6 @@ class PostsScreen extends StatefulWidget {
 class _PostsScreenState extends State<PostsScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<PostsBloc>().add(PostFetched());
   }
@@ -27,7 +26,6 @@ class _PostsScreenState extends State<PostsScreen> {
         title: Text("Post Api"),
       ),
       body: BlocBuilder<PostsBloc, PostState>(builder: (context, state) {
-        // print(state.postStatus);
         switch (state.postStatus) {
           case PostStatus.Loading:
             print(state.postStatus);
